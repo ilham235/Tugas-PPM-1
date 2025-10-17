@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, Button, StyleSheet, setMessage} from 'react-native';
 
 function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Latihan Styling Komponen</Text>
+      <Text style={styles.title}>State</Text>
       <MyComponent />
     </View>
   );
@@ -12,6 +12,20 @@ function App() {
 
 const MyComponent = () => {
   const [count, setCount] = useState(0);
+  const minus = ()=>{
+    if(count > 0){
+      setCount(count - 1);
+    }
+  }
+
+useEffect(()=>{
+   if (count ==0){
+    setMessage('Reset to zero')
+   }
+   else{
+    setMessage('Increament Values ${count} ')
+   }
+}, [count])
   return (
     <View style={styles.box}>
       <Text style={styles.text}>Count: {count}</Text>
@@ -21,9 +35,19 @@ const MyComponent = () => {
           onPress={() => setCount(count + 1)} 
           color="#4CAF50" 
         />
+        <Button 
+          title="Decrement" 
+          onPress={() => setCount(count - 1)} 
+          color="#c30505ff" 
+        />
+        <Button
+          title="Reset"
+          onPress={() => setCount(0)}
+          />
       </View>    
     </View>
   );
+  
 }
 
 const styles = StyleSheet.create({
